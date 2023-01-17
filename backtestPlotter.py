@@ -43,7 +43,7 @@ class BacktestPlotter(BacktestDriver):
         pricesAndStates['Price'].plot(color = 'black')
         ax1.fill_between(pricesAndStates.index, 0, 1, where = pricesAndStates['PositionOpen'], transform = ax1.get_xaxis_transform(), color = 'grey', alpha = 0.5)
         ax1.set_ylim(pricesAndStates['Price'].min(), pricesAndStates['Price'].max());
-        ax1.title.set_text('Long System over ' + str(self._tickerSymbols[0]) + ' with Overnight Holding Periods Permitted, ' + str(backtest._assetTimeSeries[0][0]) + ' – ' + str(backtest._assetTimeSeries[-1][0]))
+        ax1.title.set_text('Long System over ' + str(self._tickerSymbols[0]) + ' with Overnight Holding Periods Permitted, ' + str(self._assetTimeSeries[0][0]) + ' – ' + str(self._assetTimeSeries[-1][0]))
         ax1.tick_params(labelsize = 16, labelright = True)
         underlyingCurve = mpatches.Patch(color = 'black', label = 'Underlying Asset')
         individualTrades = mpatches.Patch(color = 'grey', alpha = .75, label = (str(len(self._holdingPeriods)) + ' Trade(s)'))
@@ -85,7 +85,7 @@ class BacktestPlotter(BacktestDriver):
             else:
                 ax1.set_ylim(compositeSeries['underlyingSeries'].min() - 0.005, compositeSeries['tradeSeries'].max() + 0.005);
         
-        ax1.set_title('Long System over ' + str(self._tickerSymbols[0]) + ' with Overnight Holding Periods Permitted, ' + str(backtest._assetTimeSeries[0][0]) + ' – ' + str(backtest._assetTimeSeries[-1][0]))
+        ax1.set_title('Long System over ' + str(self._tickerSymbols[0]) + ' with Overnight Holding Periods Permitted, ' + str(self._assetTimeSeries[0][0]) + ' – ' + str(self._assetTimeSeries[-1][0]))
         ax1.tick_params(labelsize = 14, labelright = True)
         yValues = ax1.get_yticks()
         ax1.set_yticklabels(['{:,.2%}'.format(y) for y in yValues])
@@ -119,7 +119,7 @@ class BacktestPlotter(BacktestDriver):
         compositeDrawdown['underlyingSeries'].plot(color = 'black', linewidth = 1.1)
         compositeDrawdown['tradeSeries'].plot(color = 'C0', linewidth = 1.5)
         ax1.axhline(0.0, linewidth = 0.5, color = 'firebrick')
-        ax1.set_title('Drawdown for Long System over ' + str(self._tickerSymbols[0]) + ' with Overnight Holding Periods Permitted, ' + str(backtest._assetTimeSeries[0][0]) + ' – ' + str(backtest._assetTimeSeries[-1][0]))
+        ax1.set_title('Drawdown for Long System over ' + str(self._tickerSymbols[0]) + ' with Overnight Holding Periods Permitted, ' + str(self._assetTimeSeries[0][0]) + ' – ' + str(self._assetTimeSeries[-1][0]))
         ax1.tick_params(labelsize = 14, labelright = True)
         yValues = ax1.get_yticks()
         ax1.set_yticklabels(['{:,.2%}'.format(y) for y in yValues])
