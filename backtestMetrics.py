@@ -35,19 +35,14 @@ class BacktestMetrics(BacktestDriver):
 
         '''Fetches the ten year from the web. Page updates once a day.'''
         
-        URL = ["https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=" + str(datetime.today().strftime('%Y%m'))]
+        URL = ("https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value_month=" + str(datetime.today().strftime('%Y%m')))
         webpageTableAsList = []
-        
-        for webPage in URL:
-     
-            stew = BeautifulSoup(urlopen(webPage).read())
-            attributes = stew.find('table').find_all('tr')
-            
-            for parYieldCurveRate in attributes:
-                
-                maturityDate = parYieldCurveRate.find_all('td')
-                maturityDate = [i.text.strip() for i in maturityDate]
-                webpageTableAsList.append(maturityDate)
+        soup = BeautifulSoup(urlopen(URL).read())
+        attributes = soup.find('table').find_all('tr')
+        for parYieldCurveRate in attributes:
+            maturityDate = parYieldCurveRate.find_all('td')
+            maturityDate = [i.text.strip() for i in maturityDate]
+            webpageTableAsList.append(maturityDate)
             
         tenYearRate = float(webpageTableAsList[-1][17])
         
